@@ -9,17 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "next": "15.4.6",
     "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.4.6"
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
-    "@eslint/eslintrc": "^3"
+    "gh-pages": "^6.3.0",
+    "typescript": "^5"
   }
+  "homepage": "https://github.com/Shams-Ud-Doha/npm-lab-repo.git",
+"scripts": {
+  "deploy": "gh-pages -d out",
+  "build": "next build && next export"
+}
+
 }
