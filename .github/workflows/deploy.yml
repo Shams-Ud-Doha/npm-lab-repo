@@ -20,7 +20,7 @@ jobs:
           node-version: 22
       - run: npm ci
       - run: npm run build
-      - run: npm run export   # Creates "out/" folder for static site
+      # - run: npm run export   # Creates "out/" folder for static site
 
       - uses: actions/configure-pages@v4
       - uses: actions/upload-pages-artifact@v3
