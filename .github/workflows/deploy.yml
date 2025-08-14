@@ -26,6 +26,11 @@ jobs:
       run: |
         npm run build
 
+    - name: Set Git user
+      run: |
+        git config --global user.email "shamsuddohamiazy@gmail.com"
+        git config --global user.name "Shams-Ud-Doha"
+
     - name: Deploy to GitHub Pages
       run: |
         npm install --save-dev gh-pages
