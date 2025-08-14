@@ -5,34 +5,34 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run build
+      - run: npm run export   # Creates "out/" folder for static site
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '22'
+      - uses: actions/configure-pages@v4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
 
-    - name: Install dependencies
-      run: |
-        npm install
-
-    - name: Build Next.js app
-      run: |
-        npm run build
-
-    - name: Set Git user
-      run: |
-        git config --global user.email "shamsuddohamiazy@gmail.com"
-        git config --global user.name "Shams-Ud-Doha"
-
-    - name: Deploy to GitHub Pages
-      run: |
-        npm install --save-dev gh-pages
-        npm run deploy
-
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
